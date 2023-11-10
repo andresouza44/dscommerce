@@ -4,6 +4,7 @@ package com.projetos.dscommerce.controller;
 import com.projetos.dscommerce.dto.ProductDTO;
 import com.projetos.dscommerce.servicies.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -44,5 +45,12 @@ public class ProductController {
     public ResponseEntity<ProductDTO> insert2(@RequestBody ProductDTO dto){
         dto = service.insert(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+    }
+
+    @PutMapping(value="/{id}")
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody  ProductDTO dto){
+        dto = service.update(id, dto);
+        return ResponseEntity.ok(dto);
+
     }
 }
