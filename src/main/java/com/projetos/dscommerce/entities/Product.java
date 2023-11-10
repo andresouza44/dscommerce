@@ -33,7 +33,7 @@ public class Product {
     private Set<OrderItem> items = new HashSet<>();
 
 
-    private Product(){
+   public Product(){
 
     }
 
