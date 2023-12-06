@@ -1,7 +1,9 @@
 package com.projetos.dscommerce.servicies;
 
+import com.projetos.dscommerce.dto.CategoriesDTO;
 import com.projetos.dscommerce.dto.ProductDTO;
 import com.projetos.dscommerce.dto.ProductMinDTO;
+import com.projetos.dscommerce.entities.Category;
 import com.projetos.dscommerce.entities.Product;
 import com.projetos.dscommerce.repositories.ProductRepository;
 import com.projetos.dscommerce.servicies.exceptions.ResourceNotFoundException;
@@ -74,6 +76,14 @@ public class ProductService {
         entity.setName(dto.getName());
         entity.setPrice(dto.getPrice());
         entity.setImgUrl(dto.getImgUrl());
+
+        entity.getCategories().clear();
+        for (CategoriesDTO catDto: dto.getCategories()){
+            Category cat = new Category();
+            cat.setId(catDto.getId());
+            entity.getCategories().add(cat);
+
+        }
 
     }
 
