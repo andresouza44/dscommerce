@@ -29,18 +29,13 @@ public class UserService implements UserDetailsService {
         if (result.size() == 0) {
             throw new UsernameNotFoundException("User no Found");
         }
-
         User user = new User();
         user.setEmail(result.get(0).getUsername());
         user.setPassword(result.get(0).getPassword());
         result.forEach(e -> user.addRole(new Role(e.getRoleId(), e.getAuthority())));
-        System.out.println("Username: " + user.getUsername());
-        System.out.println("Roles: " + user.getRoles());
-
         return user;
 
     }
-
     protected User authenticated() {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
