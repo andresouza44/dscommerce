@@ -1,6 +1,7 @@
 package com.projetos.dscommerce.servicies;
 
 import com.projetos.dscommerce.dto.ProductDTO;
+import com.projetos.dscommerce.dto.ProductMinDTO;
 import com.projetos.dscommerce.entities.Product;
 import com.projetos.dscommerce.repositories.ProductRepository;
 import com.projetos.dscommerce.servicies.exceptions.ResourceNotFoundException;
@@ -27,9 +28,9 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(String name,Pageable pageable){
+    public Page<ProductMinDTO> findAll(String name, Pageable pageable){
         Page<Product> result= repository.searchByName(name, pageable);
-        return result.map(e -> new ProductDTO(e)); // Page já um stream
+        return result.map(e -> new ProductMinDTO(e)); // Page já um stream
     }
 
     @Transactional
