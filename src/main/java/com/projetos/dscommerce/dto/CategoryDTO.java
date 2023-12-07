@@ -2,21 +2,21 @@ package com.projetos.dscommerce.dto;
 
 import com.projetos.dscommerce.entities.Category;
 
-public class CategoriesDTO {
+public class CategoryDTO {
 
     private Long id;
     private String name;
 
-    public  CategoriesDTO(){
+    public CategoryDTO(){
 
     }
 
-    public CategoriesDTO(Long id, String name) {
+    public CategoryDTO(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public CategoriesDTO (Category entity){
+    public CategoryDTO(Category entity){
         id = entity.getId();
         name = entity.getName();
     }

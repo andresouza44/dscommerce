@@ -1,6 +1,6 @@
 package com.projetos.dscommerce.servicies;
 
-import com.projetos.dscommerce.dto.CategoriesDTO;
+import com.projetos.dscommerce.dto.CategoryDTO;
 import com.projetos.dscommerce.dto.ProductDTO;
 import com.projetos.dscommerce.dto.ProductMinDTO;
 import com.projetos.dscommerce.entities.Category;
@@ -78,7 +78,7 @@ public class ProductService {
         entity.setImgUrl(dto.getImgUrl());
 
         entity.getCategories().clear();
-        for (CategoriesDTO catDto: dto.getCategories()){
+        for (CategoryDTO catDto: dto.getCategories()){
             Category cat = new Category();
             cat.setId(catDto.getId());
             entity.getCategories().add(cat);
