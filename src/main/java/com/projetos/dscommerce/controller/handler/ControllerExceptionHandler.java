@@ -2,6 +2,7 @@ package com.projetos.dscommerce.controller.handler;
 
 import com.projetos.dscommerce.dto.CustomError;
 import com.projetos.dscommerce.dto.ValidationError;
+import com.projetos.dscommerce.servicies.exceptions.ForbiddenException;
 import com.projetos.dscommerce.servicies.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -19,21 +20,30 @@ public class ControllerExceptionHandler {
     public ResponseEntity<CustomError> resourceNotFound(ResourceNotFoundException e,
                                                         HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
-        CustomError err = new CustomError(Instant.now(),status.value(),e.getMessage(),
+        CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(),
                 request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<CustomError> methodArgumentNotValid(MethodArgumentNotValidException e,
-                                                        HttpServletRequest request) {
+                                                              HttpServletRequest request) {
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-        ValidationError err = new ValidationError(Instant.now(),status.value(), "Dados inválidos",
+        ValidationError err = new ValidationError(Instant.now(), status.value(), "Dados inválidos",
                 request.getRequestURI());
-        for (FieldError f : e.getBindingResult().getFieldErrors()){
+        for (FieldError f : e.getBindingResult().getFieldErrors()) {
             err.addError(f.getField(), f.getDefaultMessage());
 
         }
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<CustomError> forbidden(ForbiddenException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        ValidationError err = new ValidationError(Instant.now(), status.value(),e.getMessage(),
+                request.getRequestURI());
+
         return ResponseEntity.status(status).body(err);
     }
 }
